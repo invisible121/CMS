@@ -1,6 +1,6 @@
 name: Node CI
 
-on: [push]/client
+on: [push]
 
 jobs:
   build:
