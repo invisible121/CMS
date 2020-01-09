@@ -1,6 +1,7 @@
 # [合同管理系统](http://luoma.fun:10086)
 
 
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/invisible121/CMS/Java_CI?label=Server) ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/invisible121/CMS/Node_CI?label=Client) ![GitHub release (latest by date)](https://img.shields.io/github/v/release/invisible121/CMS)
 
 ## 简介：
 
