@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="luoma.test_cms.Dao.LoginDao">
+    <resultMap id="login" type="luoma.test_cms.Entity.Login">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="token" property="token" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <insert id="addLogin" parameterType="luoma.test_cms.Entity.Login">
+        insert into login values (#{id}, #{token});
+    </insert>
+
+    <update id="updateLogin" parameterType="luoma.test_cms.Entity.Login">
+        update login set token = #{token} where id = #{id};
+    </update>
+
+    <select id="selectLoginByToken" parameterType="java.lang.String" resultMap="login">
+        select * from login where token = #{token};
+    </select>
+
+
+    <select id="selectLoginById" parameterType="java.lang.Integer" resultMap="login">
+        select * from login where id = #{id};
+    </select>
+
+    <select id="selectLoginUserByToken" parameterType="java.lang.String">
+        select id from login where token = #{token};
+    </select>
+</mapper>

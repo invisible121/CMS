@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="luoma.test_cms.Dao.PermissionDao">
+    <resultMap id="permission" type="luoma.test_cms.Entity.Permission">
+        <result column="con_id" property="con_id" jdbcType="INTEGER"/>
+        <result column="user_id" property="user_id" jdbcType="INTEGER"/>
+        <result column="permissions" property="permission" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <resultMap id="user_entity" type="luoma.test_cms.Entity.User_entity">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="password" property="password" jdbcType="VARCHAR"/>
+        <result column="salt" property="salt" jdbcType="VARCHAR"/>
+        <result column="del" property="del" jdbcType="INTEGER"/>
+        <result column="permissions" property="permissions" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <select id="selectConPermissionUser" parameterType="java.lang.Integer" resultMap="permission">
+        select * from permissions where con_id = #{con_id};
+    </select>
+
+    <update id="updatePermission">
+        update permissions set permissions =permissions + #{permission} where con_id = #{con_id} and user_id = #{user_id};
+    </update>
+
+
+    <select id="selectUserWithPermission" resultMap="user_entity">
+        select user_entity.id, user_entity.name,
+        user_entity.password, user_entity.salt,
+        user_entity.del, permissions.permissions
+         from user_entity, permissions
+         where permissions.con_id = #{con_id} and
+          permissions.user_id = user_entity.id ;
+    </select>
+
+    <select id="selectPermissionWithConIDAndUserID" resultType="java.lang.Integer">
+        select permissions from permissions where con_id = #{con_id} AND user_id = #{user_id};
+    </select>
+</mapper>

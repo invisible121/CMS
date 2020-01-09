@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="luoma.test_cms.Dao.RightsDao">
+    <resultMap id="rights" type="luoma.test_cms.Entity.Rights">
+        <result column="id" property="id" jdbcType="INTEGER"/>
+        <result column="rol_id" property="rol_id" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <select id="selectRightsById" parameterType="java.lang.Integer" resultMap="rights">
+        select * from rights where id = #{id}
+    </select>
+
+    <insert id="addRights" parameterType="luoma.test_cms.Entity.Rights">
+        insert into rights(rol_id, id) VALUES (#{rol_id}, #{id});
+    </insert>
+
+    <select id="selectAllRights" resultMap="rights">
+        select * from rights;
+    </select>
+
+    <update id="updateRootById" parameterType="java.lang.Integer">
+        UPDATE rights set rol_id = 1 where id = #{id};
+    </update>
+
+    <update id="updateUserById" parameterType="java.lang.Integer">
+        UPDATE rights set rol_id = 0 where id = #{id};
+    </update>
+</mapper>

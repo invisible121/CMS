@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="luoma.test_cms.Dao.ContractDao">
+    <resultMap id="contract" type="luoma.test_cms.Entity.Contract">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="cus_id" property="cus_id" jdbcType="INTEGER"/>
+        <result column="num" property="num" jdbcType="VARCHAR"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="user_id" property="user_id" jdbcType="INTEGER"/>
+        <result column="customer" property="customer" jdbcType="VARCHAR"/>
+        <result column="content" property="content" jdbcType="VARCHAR"/>
+        <result column="beginTime" property="beginTime" jdbcType="DATE"/>
+        <result column="endTime" property="endTime" jdbcType="DATE"/>
+        <result column="del" property="del" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <select id="selectAllContract" resultMap="contract">
+    select * from contract;
+</select>
+
+    <select id="selectContractById" parameterType="java.lang.Integer" resultMap="contract">
+        select * from contract where id = #{id};
+    </select>
+
+    <select id="selectContractByUserId" parameterType="java.lang.Integer" resultMap="contract">
+        select * from contract where user_id = #{user_id};
+    </select>
+
+    <select id="selectContractByProcess" resultMap="contract">
+        select contract.* from contract, contract_state where user_id = #{user_id} AND contract.id = contract_state.con_id and contract_state.id = #{process};
+    </select>
+
+    <select id="selectAllContractByProcess" resultMap="contract">
+        select contract.* from contract, contract_state where contract.id = contract_state.con_id and contract_state.id = #{process};
+    </select>
+
+    <insert id="addContract" parameterType="luoma.test_cms.Entity.Contract">
+        insert into
+         contract(cus_id, num, name, user_id,
+          customer, content, beginTime, endTime, del)
+          VALUES (#{cus_id}, #{num}, #{name}, #{user_id},
+           #{customer}, #{content}, #{beginTime}, #{endTime}, 0);
+    </insert>
+
+    <insert id="addState" >
+        insert into contract_state(con_id, id) values (#{con_id}, #{id});
+    </insert>
+
+    <update id="updateState">
+        update contract_state set id = #{id} where con_id = #{con_id};
+    </update>
+
+    <update id="commitContract">
+        update contract set CommitComment = #{msg} where id = #{id};
+    </update>
+</mapper>

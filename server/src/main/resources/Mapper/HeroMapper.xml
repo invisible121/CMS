@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="luoma.test_cms.Dao.HeroDao">
+    <resultMap id="heroResultMap" type="luoma.test_cms.Entity.Hero">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="getAllHeroInfo" parameterType="java.lang.Integer" resultMap="heroResultMap">
+        select id,name from herotable
+    </select>
+    <select id="getHeroInfoById" parameterType="java.lang.Integer" resultMap="heroResultMap">
+        select id,name from herotable  where id = #{id}
+    </select>
+    <select id="getHeroInfoByName" parameterType="java.lang.String" resultMap="heroResultMap">
+        select id,name from herotable  where name like CONCAT('%',#{name},'%')
+    </select>
+
+    <update id="updateHeroInfo" parameterType="luoma.test_cms.Entity.Hero">
+        update herotable
+        <set>
+            <if test="name != null">
+                name = #{name},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <select id="getMaxHeroId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        select Max(id) from herotable
+    </select>
+
+    <insert id="addHeroInfo" parameterType="luoma.test_cms.Entity.Hero">
+        insert into herotable values (#{id}, #{name})
+    </insert>
+
+    <delete id="deleteHeroInfo" parameterType="java.lang.Integer">
+        delete from herotable
+        where id = #{id}
+    </delete>
+
+    <select id="test" parameterType="java.lang.Integer" resultMap="heroResultMap">
+        select * from herotable
+        where id = #{id}
+    </select>
+</mapper>

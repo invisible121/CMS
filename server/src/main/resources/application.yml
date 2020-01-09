@@ -1,0 +1,11 @@
+server:
+  port: 8082
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://your_server_IP:3306/your_Database
+    username: your_Database_userName
+    password: your_Database_password
+mybatis:
+  typeAliasesPackage: luoma.test_cms.Entity
+  mapperLocations: classpath:Mapper/*.xml
