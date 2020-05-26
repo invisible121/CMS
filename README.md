@@ -15,7 +15,7 @@
 git clone https://github.com/invisible121/CMS.git
 ```
 
-### 服务端：
+### 服务端：（服务端已关闭）
 
 [**API文档**](https://documenter.getpostman.com/view/9959634/SWLh5SNo) (`我会逐渐完善`)
 
